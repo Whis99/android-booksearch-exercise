@@ -46,6 +46,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         public TextView tvTitle;
         public TextView tvAuthor;
         public RelativeLayout container;
+        Book book = new Book();
 
         public ViewHolder(final View itemView, final OnItemClickListener clickListener) {
             // Stores the itemView in a public final member variable that can be used
@@ -68,7 +69,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, BookDetailActivity.class);
-                    //intent.putExtra("Book", Parcels.wrap(itemView));
+                    intent.putExtra("Book", Parcels.wrap(book));
                     mContext.startActivity(intent);
                 }
             });
