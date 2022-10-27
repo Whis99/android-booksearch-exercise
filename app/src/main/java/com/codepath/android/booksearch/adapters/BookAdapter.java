@@ -1,18 +1,24 @@
 package com.codepath.android.booksearch.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.codepath.android.booksearch.R;
+import com.codepath.android.booksearch.activities.BookDetailActivity;
+import com.codepath.android.booksearch.activities.BookListActivity;
 import com.codepath.android.booksearch.models.Book;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +45,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         public ImageView ivCover;
         public TextView tvTitle;
         public TextView tvAuthor;
+        public RelativeLayout container;
 
         public ViewHolder(final View itemView, final OnItemClickListener clickListener) {
             // Stores the itemView in a public final member variable that can be used
@@ -48,11 +55,21 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
             ivCover = (ImageView)itemView.findViewById(R.id.ivBookCover);
             tvTitle = (TextView)itemView.findViewById(R.id.tvTitle);
             tvAuthor = (TextView)itemView.findViewById(R.id.tvAuthor);
+            container = itemView.findViewById(R.id.container);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     clickListener.onItemClick(itemView, getAdapterPosition());
+                }
+            });
+
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, BookDetailActivity.class);
+                    //intent.putExtra("Book", Parcels.wrap(itemView));
+                    mContext.startActivity(intent);
                 }
             });
         }
@@ -94,6 +111,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
                 .placeholder(R.drawable.ic_nocover))
                 .into(viewHolder.ivCover);
         // Return the completed view to render on screen
+
     }
 
     // Returns the total count of items in the list
